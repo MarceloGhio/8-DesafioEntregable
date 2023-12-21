@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Productos en Tiempo Real</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <h1>Productos en Tiempo Real</h1>
+    <ul>
+        {{#each products}}
+            <li>{{this.title}} - {{this.price}}</li>
+        {{/each}}
+    </ul>
+
+    <!-- Formulario para crear o eliminar productos vía WebSocket -->
+    <form id="productForm">
+        <input type="text" name="title" placeholder="Título del producto" required>
+        <input type="number" name="price" placeholder="Precio" required>
+        <button type="submit">Agregar Producto</button>
+    </form>
+
+    <script>
+        const socket = io();
+
+        // Escuchar eventos desde el servidor
+        socket.on('productsUpdated', (products) => {
+            // Actualizar la lista de productos en tiempo real
+            const productList = document.querySelector('ul');
+            productList.innerHTML = products.map(product => `<li>${product.title} - ${product.price}</li>`).join('');
+        });
+
+        // Enviar el formulario vía WebSocket
+        const productForm = document.getElementById('productForm');
+        productForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(productForm);
+            const newProduct = {
+                title: formData.get('title'),
+                price: parseFloat(formData.get('price')),
+            };
+            socket.emit('createProduct', newProduct); // Define un evento para crear productos
+        });
+    </script>
+</body>
+</html>

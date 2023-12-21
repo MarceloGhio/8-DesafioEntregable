@@ -1,0 +1,25 @@
+[
+    {
+      "title": "Producto 1",
+      "description": "Descripción del Producto 1",
+      "price": 19.99,
+      "thumbnail": "product1.jpg",
+      "code": "P001",
+      "stock": 10,
+      "category": "Categoría 1",
+      "status": true,
+      "id": 2
+    },
+    {
+      "title": "Producto 5",
+      "description": "Descripción del Producto 5",
+      "price": 14.99,
+      "thumbnail": "product5.jpg",
+      "code": "P005",
+      "stock": 20,
+      "category": "Categoría 1",
+      "status": true,
+      "id": 3
+    }
+  ]
+  
